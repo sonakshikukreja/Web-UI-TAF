@@ -6,23 +6,27 @@ This project is a Selenium-based test automation framework designed to test Yaho
 
 ```mermaid
 graph TD
-    subgraph "Test Execution Flow"
-        A[Maven] -- triggers --> B[TestNG];
-        B -- executes --> C[YahooSearchTest];
-        C -- uses --> D[YahooSearchPage (POM)];
-        D -- sends commands to --> E[Selenium WebDriver];
-        E -- automates --> F[Chrome Browser];
+    %% Define styles for nodes
+    classDef tool fill:#e1f5fe,stroke:#0277bd,stroke-width:2px,color:#01579b
+    classDef code fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,color:#f57f17
+    classDef browser fill:#fce4ec,stroke:#c2185b,stroke-width:2px,color:#880e4f
+    classDef report fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20
+    classDef artifact fill:#f5f5f5,stroke:#616161,stroke-width:2px,stroke-dasharray: 5 5,color:#212121
+
+    subgraph Execution ["🚀 Test Execution Flow"]
+        Maven("Maven"):::tool -->|Triggers| TestNG("TestNG"):::tool
+        TestNG -->|Executes| TestClass["YahooSearchTest"]:::code
+        TestClass -->|Uses| POM["YahooSearchPage (POM)"]:::code
+        POM -->|Commands| WebDriver("Selenium WebDriver"):::tool
+        WebDriver -->|Automates| Browser(("Chrome Browser")):::browser
     end
 
-    subgraph "Reporting Flow"
-        G[Allure Listener] -- hooks into --> B;
-        G -- generates --> H[allure-results (JSON)];
-        I[Allure CLI] -- processes --> H;
-        I -- creates --> J[Allure HTML Report];
+    subgraph Reporting ["📊 Reporting Flow"]
+        Listener("Allure Listener"):::tool -.->|Hooks into| TestNG
+        Listener -->|Generates| Results[("allure-results (JSON)")]:::artifact
+        CLI("Allure CLI"):::tool -->|Reads| Results
+        CLI -->|Generates| Report["Allure HTML Report"]:::report
     end
-
-    style F fill:#f9f,stroke:#333,stroke-width:2px
-    style J fill:#bbf,stroke:#333,stroke-width:2px
 ```
 
 ## Project Structure
