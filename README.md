@@ -2,6 +2,29 @@
 
 This project is a Selenium-based test automation framework designed to test Yahoo Search functionality. It uses Java, Maven, TestNG, and Allure for reporting.
 
+## Test Architecture Diagram
+
+```mermaid
+graph TD
+    subgraph "Test Execution Flow"
+        A[Maven] -- triggers --> B[TestNG];
+        B -- executes --> C[YahooSearchTest];
+        C -- uses --> D[YahooSearchPage (POM)];
+        D -- sends commands to --> E[Selenium WebDriver];
+        E -- automates --> F[Chrome Browser];
+    end
+
+    subgraph "Reporting Flow"
+        G[Allure Listener] -- hooks into --> B;
+        G -- generates --> H[allure-results (JSON)];
+        I[Allure CLI] -- processes --> H;
+        I -- creates --> J[Allure HTML Report];
+    end
+
+    style F fill:#f9f,stroke:#333,stroke-width:2px
+    style J fill:#bbf,stroke:#333,stroke-width:2px
+```
+
 ## Project Structure
 
 ```
